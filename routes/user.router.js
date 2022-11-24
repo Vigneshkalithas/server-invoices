@@ -1,14 +1,5 @@
 import express from "express";
-// import {
-//   Login,
-//   Signup,
-//   Logout,
-//   getUsers,
-//   Auth,
-//   ForgetPassword,
-//   Verify,
-//   Changepassword,
-// } from "../controllers/user.controller.js";
+
 import {
   Signup,
   Login,
@@ -16,6 +7,7 @@ import {
   ForgetPassword,
   Verify,
   Changepassword,
+  Auth,
 } from "../controllers/user.controller.js";
 
 const router = express.Router();
@@ -27,7 +19,7 @@ router.post("/forgetpassword", ForgetPassword);
 router.post("/verify-token", Verify);
 router.patch("/changepassword/:id", Changepassword);
 
-// router.post("/auth", Auth);
+router.post("/auth", Auth);
 // router.get("/getUsers", getUsers);
 
 export default router;

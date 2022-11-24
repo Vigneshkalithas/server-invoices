@@ -53,6 +53,7 @@ const Login = async (req, res) => {
           res.status(200).json({
             message: "User logged in successfully",
             sessionData,
+            role: user.role,
           });
         }
       });
@@ -78,19 +79,19 @@ const Logout = async (req, res) => {
   }
 };
 
-// const Auth = async (req, res) => {
-//   try {
-//     const { userId, token } = req.body;
-//     const user = await Users.findById(userId);
-//     if (!user) {
-//       return res.status(403).send({ message: "Please Login" });
-//     } else {
-//       return res.send({ role: user.role });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const Auth = async (req, res) => {
+  try {
+    const { userId, token } = req.body;
+    const user = await Users.findById(userId);
+    if (!user) {
+      return res.status(403).send({ message: "Please Login" });
+    } else {
+      return res.send({ role: user.role });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const ForgetPassword = async (req, res) => {
   try {
@@ -160,4 +161,4 @@ const Changepassword = async (req, res) => {
   }
 };
 
-export { Signup, Login, Logout, ForgetPassword, Verify, Changepassword };
+export { Signup, Login, Logout, Auth, ForgetPassword, Verify, Changepassword };

@@ -9,18 +9,25 @@ import express from "express";
 //   Verify,
 //   Changepassword,
 // } from "../controllers/user.controller.js";
-import { Signup, Login } from "../controllers/user.controller.js";
+import {
+  Signup,
+  Login,
+  Logout,
+  ForgetPassword,
+  Verify,
+  Changepassword,
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
 router.post("/signup", Signup);
 router.post("/login", Login);
-// router.get("/getUsers", getUsers);
+router.post("/logout", Logout);
+router.post("/forgetpassword", ForgetPassword);
+router.post("/verify-token", Verify);
+router.patch("/changepassword/:id", Changepassword);
 
-// router.post("/logout", Logout);
 // router.post("/auth", Auth);
-// router.post("/forgetpassword", ForgetPassword);
-// router.post("/verify-token", Verify);
-// router.patch("/changepassword/:id", Changepassword);
+// router.get("/getUsers", getUsers);
 
 export default router;

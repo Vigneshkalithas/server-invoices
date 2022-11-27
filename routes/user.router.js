@@ -18,7 +18,6 @@ router.post("/logout", Logout);
 router.post("/forgetpassword", ForgetPassword);
 router.post("/verify-token", Verify);
 router.patch("/changepassword/:id", Changepassword);
-
 router.post("/auth", Auth);
 // router.get("/getUsers", getUsers);
 

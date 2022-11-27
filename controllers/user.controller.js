@@ -68,10 +68,12 @@ const Login = async (req, res) => {
 const Logout = async (req, res) => {
   try {
     const { token } = req.body;
+    console.log(req.body);
     const expireCheck = await Sessions.findOneAndUpdate(
       { token },
       { expired: true }
     );
+    console.log(expireCheck);
     await expireCheck.save();
     res.status(200).send({ message: "logout succesfully" });
   } catch (error) {
@@ -124,7 +126,7 @@ async function Mail(email, token) {
   });
 
   let info = await transporter.sendMail({
-    from: '"Cooking Box" <vigneshk@tolemy.io>', // sender address
+    from: '"Invoices App" <vigneshk@tolemy.io>', // sender address
     to: `${email}`, // list of receivers
     subject: "Reset Password", // Subject line
     text: `Copy and Paste this link in browser - ${token}`, // plain text body

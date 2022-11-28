@@ -33,7 +33,8 @@ app.listen(PORT, () => {
   console.log("listning on port " + PORT);
 });
 
-// "city" : "chennai",
+// "city" : "chennai",npm run dev
+
 // "clientaddress" : "19309, radha nagar, chrompet.",
 // "clientcity" : "theni",
 // "clientcountry" : "united states",

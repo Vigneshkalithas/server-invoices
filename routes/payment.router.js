@@ -1,13 +1,13 @@
 import express from "express";
-import { Orders, VerifyPayment } from "../controllers/payment.controller.js";
+import { orders, verifyPayment } from "../controllers/payment.controller.js";
 const router = express.Router();
 
 // const router = require("express").Router();
 // const Razorpay = require("razorpay");
 // const crypto = require("crypto");
 
-router.post("/orders", Orders());
+router.post("/orders", orders);
 
-router.post("/verify", VerifyPayment());
+router.post("/verify", verifyPayment);
 
 export default router;

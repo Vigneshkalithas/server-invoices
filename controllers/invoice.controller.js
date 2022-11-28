@@ -16,6 +16,7 @@ const Create = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
 const Edit = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
@@ -28,4 +29,22 @@ const Edit = async (req, res) => {
   }
 };
 
-export { Create, Edit };
+const GetData = async (req, res) => {
+  try {
+    const invoice = await Invoice.find();
+    res.status(200).send(invoice);
+  } catch (error) {
+    res.status(400).send({ message: error });
+  }
+};
+
+const GetOne = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const invoice = await Invoice.findById(id);
+    res.status(200).send(invoice);
+  } catch (error) {
+    res.status(400).send({ message: error });
+  }
+};
+export { Create, Edit, GetData, GetOne };

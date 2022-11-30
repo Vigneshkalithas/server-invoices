@@ -1,5 +1,6 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
+import { Users } from "../models/user.model.js";
 
 const verifyPayment = async (req, res) => {
   try {
@@ -12,6 +13,15 @@ const verifyPayment = async (req, res) => {
       .digest("hex");
 
     if (razorpay_signature === expectedSign) {
+      const { id } = req.body;
+      try {
+        const updateStatus = await Users.findByIdAndUpdate(id, {
+          role: "admin",
+        });
+        await updateStatus.save();
+      } catch (error) {
+        console.log(error);
+      }
       return res.status(200).json({ message: "Payment verified successfully" });
     } else {
       return res.status(400).json({ message: "Invalid signature sent!" });
@@ -31,7 +41,8 @@ const orders = async (req, res) => {
 
     const options = {
       amount: req.body.amount * 100,
-      currency: "INR",
+      // currency: "INR",
+      currency: "USD",
       receipt: crypto.randomBytes(10).toString("hex"),
     };
 
@@ -41,7 +52,7 @@ const orders = async (req, res) => {
         return res.status(500).json({ message: "Something Went Wrong!" });
       }
       res.status(200).json({ data: order });
-      console.log(order);
+      // console.log(order);
     });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error!" });

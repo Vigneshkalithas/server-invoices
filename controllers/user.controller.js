@@ -20,7 +20,7 @@ const Signup = async (req, res) => {
         { _id: user._id + Date.now() },
         process.env.SECRET
       );
-      const sessionData = new Sessions({ userId: user._id, token });
+      const sessionData = new Sessions({ userId: user._id, token, role });
       await user.save();
       await sessionData.save();
       res
@@ -36,7 +36,7 @@ const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await Users.findOne({ email: email });
-
+    const role = user.role;
     if (!user) {
       return res.status(401).send({ message: "Invalid Credentials" });
     } else {
@@ -47,13 +47,12 @@ const Login = async (req, res) => {
             { _id: user.id + Date.now() },
             process.env.SECRET
           );
-          const sessionData = new Sessions({ userId: user._id, token });
+          const sessionData = new Sessions({ userId: user._id, token, role });
           await user.save();
           await sessionData.save();
           res.status(200).json({
             message: "User logged in successfully",
             sessionData,
-            role: user.role,
           });
         }
       });

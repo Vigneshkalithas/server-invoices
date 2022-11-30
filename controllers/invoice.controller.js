@@ -21,7 +21,11 @@ const Edit = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
   try {
-    const Editinvoices = await Invoice.findByIdAndUpdate(id, { ...data });
+    const Editinvoices = await Invoice.findByIdAndUpdate(
+      id,
+      { ...data },
+      { new: true }
+    );
     await Editinvoices.save();
     res.status(200).send(Editinvoices);
   } catch (error) {
@@ -47,4 +51,31 @@ const GetOne = async (req, res) => {
     res.status(400).send({ message: error });
   }
 };
-export { Create, Edit, GetData, GetOne };
+
+const MarkPaid = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    // status
+    const updateStatus = await Invoice.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+    await updateStatus.save();
+    res.status(200).send(updateStatus);
+  } catch (error) {
+    res.status(400).send({ message: "sorry", error: error });
+  }
+};
+
+const Delete = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const invoice = await Invoice.findByIdAndDelete(id);
+    res.status(200).send({ message: "Invoice deletedd succesfully" });
+  } catch (error) {
+    res.status(400).send({ message: "Something wnt wrong", error: error });
+  }
+};
+export { Create, Edit, GetData, GetOne, MarkPaid, Delete };
